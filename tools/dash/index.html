@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energiepreis Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Energiepreis Dashboard</h1>
+    <p>Plane deine Haushaltsgeraete auf Basis der dynamischen Tarife von CKW.</p>
+  </header>
+
+  <main>
+    <section class="controls card">
+      <h2>Abfrage</h2>
+      <form id="query-form">
+        <div class="field">
+          <label for="tariff-name">Tarif</label>
+          <select id="tariff-name" name="tariff_name">
+            <option value="home_dynamic">Home Dynamic (&lt; 50 MWh/Jahr)</option>
+            <option value="business_dynamic">Business Dynamic (&gt; 50 MWh/Jahr)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="tariff-type">Tariftyp</label>
+          <select id="tariff-type" name="tariff_type">
+            <option value="integrated">Integrated (Netznutzung + Energie)</option>
+            <option value="grid_usage">Grid Usage (Netznutzungspreis)</option>
+            <option value="grid">Grid (Grid Usage + Zuschlaege)</option>
+            <option value="electricity">Electricity (Energiepreis)</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label for="start">Start (ISO 8601)</label>
+            <input id="start" name="start_timestamp" type="datetime-local" step="900">
+          </div>
+          <div class="field">
+            <label for="end">Ende (ISO 8601)</label>
+            <input id="end" name="end_timestamp" type="datetime-local" step="900">
+          </div>
+        </div>
+
+        <div class="field field-checkbox">
+          <input id="use-demo" type="checkbox">
+          <label for="use-demo">Demo-Daten verwenden (kein Live-API-Aufruf)</label>
+        </div>
+
+        <button type="submit">Preise laden</button>
+      </form>
+      <p class="hint">Hinweis: Die API ist laut Anbieter ab 13. Oktober 2025 verfuegbar. Bis dahin kann der Demo-Modus genutzt werden.</p>
+    </section>
+
+    <section class="card">
+      <h2>Empfohlene Zeitfenster</h2>
+      <div id="recommendations" class="recommendations"></div>
+    </section>
+
+    <section class="card">
+      <h2>Preisverlauf</h2>
+      <div id="chart" class="chart"></div>
+    </section>
+
+    <section class="card">
+      <h2>Preisdetails</h2>
+      <div class="table-wrapper">
+        <table id="price-table">
+          <thead>
+            <tr>
+              <th>Zeitslot</th>
+              <th>Preis (CHF/kWh)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Alle Preise exkl. MwSt. | Quelle: CKW dynamische Tarife API</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

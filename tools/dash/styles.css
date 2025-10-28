@@ -1,0 +1,244 @@
+﻿:root {
+  color-scheme: light dark;
+  --bg: #f7f8fa;
+  --card-bg: #ffffffee;
+  --border: #d0d6e0;
+  --accent: #0060df;
+  --text: #1f2a3d;
+  --muted: #5a6880;
+  --gridline: #d9e2f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #003eaa, #00a6fb);
+  color: #fff;
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+}
+
+header p {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+main {
+  max-width: 1100px;
+  margin: -2rem auto 0;
+  padding: 0 1.5rem 3rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px -24px rgba(14, 30, 64, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.controls form {
+  display: grid;
+  gap: 1rem;
+}
+
+.field-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.field {
+  flex: 1 1 200px;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+select,
+input,
+button {
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: linear-gradient(135deg, #0060df, #00a6fb);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px -12px rgba(0, 96, 223, 0.8);
+}
+
+.field-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field-checkbox input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--accent);
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.recommendations {
+  display: grid;
+  gap: 1rem;
+}
+
+.recommendation-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: grid;
+  gap: 0.35rem;
+  background: #fff;
+}
+
+.recommendation-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.recommendation-card .price {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.chart {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  gap: 0.4rem;
+  min-height: 220px;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.bar {
+  background: linear-gradient(180deg, rgba(0, 166, 251, 0.85), rgba(0, 62, 170, 0.9));
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  min-width: 40px;
+}
+
+.bar::after {
+  content: attr(data-time);
+  position: absolute;
+  inset: 100% 0 auto 0;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.bar::before {
+  content: attr(data-price) " CHF";
+  position: absolute;
+  top: -1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.table-wrapper {
+  max-height: 380px;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background: #f0f4fb;
+  color: #33415c;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--gridline);
+  text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(0, 96, 223, 0.04);
+}
+
+tbody tr:hover {
+  background: rgba(0, 166, 251, 0.1);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem 1rem 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+    margin-top: -1.5rem;
+  }
+
+  .chart {
+    padding-bottom: 1.5rem;
+  }
+}
+.alert {
+  background: rgba(230, 68, 31, 0.08);
+  border: 1px solid rgba(230, 68, 31, 0.3);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  color: #9b2c2c;
+}
