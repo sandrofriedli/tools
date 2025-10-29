@@ -50,19 +50,36 @@
           <label for="use-demo">Demo-Daten verwenden (kein Live-API-Aufruf)</label>
         </div>
 
+        <div class="field">
+          <label for="baseline-rate">Einheitstarif (CHF/kWh)</label>
+          <input id="baseline-rate" name="baseline_rate" type="number" min="0" step="0.0001" value="0.31">
+          <p class="hint">Standard: 0.31 CHF/kWh entspricht 31 Rp.</p>
+        </div>
+
+        <div class="field">
+          <label for="load-profile">Lastgang CSV (15-Minuten-Werte)</label>
+          <input id="load-profile" type="file" accept=".csv,text/csv">
+          <p class="hint">Erwartet Spalten f&uuml;r Zeitstempel und kWh, z.&nbsp;B. <code>timestamp,value</code>.</p>
+        </div>
+
         <button type="submit">Preise laden</button>
       </form>
       <p class="hint">Hinweis: Die API ist laut Anbieter ab 13. Oktober 2025 verfuegbar. Bis dahin kann der Demo-Modus genutzt werden.</p>
     </section>
 
-    <section class="card">
+    <section class="card card--wide">
+      <h2>Preisverlauf</h2>
+      <div id="chart" class="chart"></div>
+    </section>
+
+    <section class="card card--wide">
       <h2>Empfohlene Zeitfenster</h2>
       <div id="recommendations" class="recommendations"></div>
     </section>
 
     <section class="card">
-      <h2>Preisverlauf</h2>
-      <div id="chart" class="chart"></div>
+      <h2>Kostenvergleich</h2>
+      <div id="comparison" class="comparison"></div>
     </section>
 
     <section class="card">
