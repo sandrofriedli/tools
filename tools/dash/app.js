@@ -216,8 +216,65 @@ function renderError(message) {
   }
 }
 
+function findSlotArray(payload) {
+  const queue = [];
+  const visited = new Set();
+
+  if (payload !== undefined) {
+    queue.push(payload);
+  }
+
+  while (queue.length) {
+    const current = queue.shift();
+    if (current === null) {
+      continue;
+    }
+
+    const valueType = typeof current;
+    if (valueType !== "object" && valueType !== "function") {
+      continue;
+    }
+
+    if (visited.has(current)) {
+      continue;
+    }
+    visited.add(current);
+
+    if (Array.isArray(current)) {
+      const hasTimestamps = current.some(
+        (slot) => slot && (slot.start_timestamp || slot.startTimestamp)
+      );
+      if (hasTimestamps) {
+        return current;
+      }
+      continue;
+    }
+
+    Object.values(current).forEach((value) => {
+      if (value !== undefined) {
+        queue.push(value);
+      }
+    });
+  }
+
+  return null;
+}
+
 function normalizeSlots(payload, tariffType) {
-  return payload
+  const slotsPayload = findSlotArray(payload);
+
+  if (!Array.isArray(slotsPayload)) {
+    if (payload && typeof payload === "object") {
+      console.warn("normalizeSlots: unexpected payload format", payload);
+    }
+    return [];
+  }
+
+  if (!slotsPayload.length) {
+    return [];
+  }
+
+  return slotsPayload
     .map((slot) => {
       const priceEntry = extractPrice(slot, tariffType);
       if (!priceEntry) return null;
